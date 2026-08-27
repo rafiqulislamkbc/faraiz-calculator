@@ -27,12 +27,13 @@ class ResultsScreen extends StatelessWidget {
     final isRadd = status == 'radd';
 
     return Scaffold(
-      backgroundColor: const Color(0xFFF8FAFC),
+      backgroundColor: const Color(0xFFF8FAF9),
       appBar: AppBar(
-        title: const Text('বণ্টন প্রতিবেদন ও ফলাফল', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+        title: const Text('উত্তরাধিকার বণ্টন প্রতিবেদন', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
         backgroundColor: const Color(0xFF047857),
         foregroundColor: Colors.white,
-        elevation: 1,
+        elevation: 0,
+        centerTitle: true,
       ),
       body: LayoutBuilder(
         builder: (context, constraints) {
@@ -48,26 +49,43 @@ class ResultsScreen extends StatelessWidget {
               children: [
                 // 1. Status Banner
                 Container(
-                  padding: const EdgeInsets.all(14),
+                  padding: const EdgeInsets.all(16),
                   decoration: BoxDecoration(
                     color: isAul
                         ? const Color(0xFFFFFBEB)
-                        : (isRadd ? const Color(0xFFF0FDF4) : const Color(0xFFF8FAFC)),
-                    borderRadius: BorderRadius.circular(16),
+                        : (isRadd ? const Color(0xFFECFDF5) : Colors.white),
+                    borderRadius: BorderRadius.circular(18),
                     border: Border.all(
                       color: isAul
                           ? const Color(0xFFFDE68A)
                           : (isRadd ? const Color(0xFFA7F3D0) : const Color(0xFFE2E8F0)),
+                      width: 1.5,
                     ),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withValues(alpha: 0.02),
+                        blurRadius: 6,
+                        offset: const Offset(0, 2),
+                      ),
+                    ],
                   ),
                   child: Row(
                     children: [
-                      Icon(
-                        isAul ? Icons.warning_amber_rounded : (isRadd ? Icons.trending_up : Icons.check_circle_outline),
-                        color: isAul ? const Color(0xFFD97706) : (isRadd ? const Color(0xFF059669) : const Color(0xFF0284C7)),
-                        size: 28,
+                      Container(
+                        padding: const EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                          color: isAul
+                              ? const Color(0xFFFEF3C7)
+                              : (isRadd ? const Color(0xFFD1FAE5) : const Color(0xFFE0F2FE)),
+                          shape: BoxShape.circle,
+                        ),
+                        child: Icon(
+                          isAul ? Icons.warning_amber_rounded : (isRadd ? Icons.trending_up : Icons.check_circle_outline),
+                          color: isAul ? const Color(0xFFD97706) : (isRadd ? const Color(0xFF059669) : const Color(0xFF0284C7)),
+                          size: 24,
+                        ),
                       ),
-                      const SizedBox(width: 12),
+                      const SizedBox(width: 14),
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -82,10 +100,10 @@ class ResultsScreen extends StatelessWidget {
                                 color: isAul ? const Color(0xFFB45309) : (isRadd ? const Color(0xFF047857) : const Color(0xFF1E293B)),
                               ),
                             ),
-                            const SizedBox(height: 2),
+                            const SizedBox(height: 3),
                             Text(
                               result.statusExplanationBn,
-                              style: TextStyle(fontSize: 12, color: Colors.grey.shade800),
+                              style: TextStyle(fontSize: 12, color: Colors.grey.shade800, height: 1.3),
                             ),
                           ],
                         ),
@@ -98,15 +116,15 @@ class ResultsScreen extends StatelessWidget {
 
                 // 2. Interactive Pie/Donut Chart & Valuation Card
                 Container(
-                  padding: const EdgeInsets.all(16),
+                  padding: const EdgeInsets.all(18),
                   decoration: BoxDecoration(
                     color: Colors.white,
-                    borderRadius: BorderRadius.circular(16),
-                    border: Border.all(color: Colors.grey.shade200),
+                    borderRadius: BorderRadius.circular(20),
+                    border: Border.all(color: const Color(0xFFE2E8F0)),
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.black.withValues(alpha: 0.02),
-                        blurRadius: 6,
+                        color: Colors.black.withValues(alpha: 0.03),
+                        blurRadius: 8,
                         offset: const Offset(0, 2),
                       ),
                     ],
@@ -122,8 +140,8 @@ class ResultsScreen extends StatelessWidget {
                         children: [
                           // Donut Chart Canvas
                           SizedBox(
-                            width: 130,
-                            height: 130,
+                            width: 135,
+                            height: 135,
                             child: CustomPaint(
                               painter: _DonutChartPainter(
                                 results: result.heirResults,
@@ -133,9 +151,9 @@ class ResultsScreen extends StatelessWidget {
                                 child: Column(
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
-                                    const Text('মোট বণ্টন', style: TextStyle(fontSize: 11, color: Colors.grey, fontWeight: FontWeight.bold)),
+                                    const Text('মোট বণ্টন', style: TextStyle(fontSize: 10.5, color: Colors.grey, fontWeight: FontWeight.bold)),
                                     const Text('১০০%', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Color(0xFF047857))),
-                                    Text('৳ ${(result.netDistributableValuation / 1000).toStringAsFixed(0)}K', style: TextStyle(fontSize: 10, color: Colors.grey.shade600)),
+                                    Text('৳ ${(result.netDistributableValuation / 1000).toStringAsFixed(0)}K', style: TextStyle(fontSize: 10, color: Colors.grey.shade600, fontWeight: FontWeight.bold)),
                                   ],
                                 ),
                               ),
@@ -153,7 +171,7 @@ class ResultsScreen extends StatelessWidget {
                                 final color = _chartColors[idx % _chartColors.length];
 
                                 return Padding(
-                                  padding: const EdgeInsets.symmetric(vertical: 2.5),
+                                  padding: const EdgeInsets.symmetric(vertical: 3),
                                   child: Row(
                                     children: [
                                       Container(width: 10, height: 10, decoration: BoxDecoration(color: color, shape: BoxShape.circle)),
@@ -161,14 +179,14 @@ class ResultsScreen extends StatelessWidget {
                                       Expanded(
                                         child: Text(
                                           '${heir.nameBn} (${heir.count} জন)',
-                                          style: const TextStyle(fontSize: 11, fontWeight: FontWeight.w600),
+                                          style: const TextStyle(fontSize: 11.5, fontWeight: FontWeight.w600),
                                           maxLines: 1,
                                           overflow: TextOverflow.ellipsis,
                                         ),
                                       ),
                                       Text(
                                         '${heir.percentage.toStringAsFixed(1)}%',
-                                        style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: color),
+                                        style: TextStyle(fontSize: 11.5, fontWeight: FontWeight.bold, color: color),
                                       ),
                                     ],
                                   ),
@@ -189,7 +207,7 @@ class ResultsScreen extends StatelessWidget {
                   'ওয়ারিশদের বিস্তারিত প্রাপ্য ও দলিল:',
                   style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: Color(0xFF065F46)),
                 ),
-                const SizedBox(height: 8),
+                const SizedBox(height: 10),
 
                 ...result.heirResults.asMap().entries.map((entry) {
                   final idx = entry.key;
@@ -197,15 +215,15 @@ class ResultsScreen extends StatelessWidget {
                   final color = _chartColors[idx % _chartColors.length];
 
                   return Container(
-                    margin: const EdgeInsets.only(bottom: 12),
+                    margin: const EdgeInsets.only(bottom: 14),
                     decoration: BoxDecoration(
                       color: Colors.white,
-                      borderRadius: BorderRadius.circular(16),
-                      border: Border.all(color: Colors.grey.shade200),
+                      borderRadius: BorderRadius.circular(20),
+                      border: Border.all(color: const Color(0xFFE2E8F0)),
                       boxShadow: [
                         BoxShadow(
                           color: Colors.black.withValues(alpha: 0.02),
-                          blurRadius: 4,
+                          blurRadius: 6,
                           offset: const Offset(0, 2),
                         ),
                       ],
@@ -215,12 +233,12 @@ class ResultsScreen extends StatelessWidget {
                       children: [
                         // Card Header
                         Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+                          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                           decoration: BoxDecoration(
-                            color: color.withValues(alpha: 0.06),
+                            color: color.withValues(alpha: 0.08),
                             borderRadius: const BorderRadius.only(
-                              topLeft: Radius.circular(16),
-                              topRight: Radius.circular(16),
+                              topLeft: Radius.circular(20),
+                              topRight: Radius.circular(20),
                             ),
                             border: Border(bottom: BorderSide(color: Colors.grey.shade100)),
                           ),
@@ -229,11 +247,11 @@ class ResultsScreen extends StatelessWidget {
                             children: [
                               Row(
                                 children: [
-                                  CircleAvatar(backgroundColor: color, radius: 5),
+                                  CircleAvatar(backgroundColor: color, radius: 6),
                                   const SizedBox(width: 8),
                                   Text(
                                     '${heir.nameBn} (${heir.count} জন)',
-                                    style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: Color(0xFF1E293B)),
+                                    style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: Color(0xFF0F172A)),
                                   ),
                                 ],
                               ),
@@ -241,7 +259,7 @@ class ResultsScreen extends StatelessWidget {
                                 padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                                 decoration: BoxDecoration(
                                   color: color,
-                                  borderRadius: BorderRadius.circular(20),
+                                  borderRadius: BorderRadius.circular(16),
                                 ),
                                 child: Text(
                                   'মোট ${heir.percentage.toStringAsFixed(2)}%',
@@ -254,23 +272,33 @@ class ResultsScreen extends StatelessWidget {
 
                         // Card Body
                         Padding(
-                          padding: const EdgeInsets.all(14.0),
+                          padding: const EdgeInsets.all(16.0),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
+                              // Islamic Rule & Quranic Reference
                               Text(
                                 heir.ruleExplanationBn,
-                                style: const TextStyle(fontSize: 12.5, color: Color(0xFF334155), height: 1.4),
+                                style: const TextStyle(fontSize: 13, color: Color(0xFF334155), height: 1.4),
                               ),
                               if (heir.quranReference != null) ...[
-                                const SizedBox(height: 4),
-                                Text(
-                                  heir.quranReference!,
-                                  style: TextStyle(fontSize: 11, fontStyle: FontStyle.italic, color: Colors.green.shade800),
+                                const SizedBox(height: 6),
+                                Container(
+                                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                                  decoration: BoxDecoration(
+                                    color: const Color(0xFFECFDF5),
+                                    borderRadius: BorderRadius.circular(8),
+                                    border: Border.all(color: const Color(0xFFA7F3D0)),
+                                  ),
+                                  child: Text(
+                                    '۞ ${heir.quranReference!} ۞',
+                                    style: const TextStyle(fontSize: 11.5, fontStyle: FontStyle.italic, color: Color(0xFF065F46), fontWeight: FontWeight.bold),
+                                  ),
                                 ),
                               ],
-                              const Divider(height: 18),
+                              const Divider(height: 22, color: Color(0xFFF1F5F9)),
 
+                              // Itemized Assets Breakdown
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
@@ -282,21 +310,21 @@ class ResultsScreen extends StatelessWidget {
                               ),
 
                               if (heir.count > 1) ...[
-                                const SizedBox(height: 10),
+                                const SizedBox(height: 12),
                                 Container(
-                                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                                   decoration: BoxDecoration(
-                                    color: Colors.grey.shade50,
-                                    borderRadius: BorderRadius.circular(8),
-                                    border: Border.all(color: Colors.grey.shade200),
+                                    color: const Color(0xFFF8FAFC),
+                                    borderRadius: BorderRadius.circular(10),
+                                    border: Border.all(color: const Color(0xFFE2E8F0)),
                                   ),
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
-                                      const Text('জনপ্রতি প্রাপ্য অংশ:', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: Colors.grey)),
+                                      const Text('জনপ্রতি প্রাপ্য অংশ:', style: TextStyle(fontSize: 11.5, fontWeight: FontWeight.bold, color: Colors.grey)),
                                       Text(
                                         '${heir.perPersonPercentage.toStringAsFixed(2)}% (৳ ${(heir.totalValuationShare / heir.count).toStringAsFixed(0)})',
-                                        style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Color(0xFF047857)),
+                                        style: const TextStyle(fontSize: 12.5, fontWeight: FontWeight.bold, color: Color(0xFF047857)),
                                       ),
                                     ],
                                   ),
@@ -312,18 +340,18 @@ class ResultsScreen extends StatelessWidget {
 
                 // 4. Blocked Heirs (Hajb)
                 if (result.blockedHeirs.isNotEmpty) ...[
-                  const SizedBox(height: 12),
+                  const SizedBox(height: 10),
                   const Text(
                     'বঞ্চিত ওয়ারিশগণ (হজবে হির্মান):',
-                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.redAccent),
+                    style: TextStyle(fontSize: 14.5, fontWeight: FontWeight.bold, color: Colors.redAccent),
                   ),
-                  const SizedBox(height: 6),
+                  const SizedBox(height: 8),
                   Container(
-                    padding: const EdgeInsets.all(12),
+                    padding: const EdgeInsets.all(14),
                     decoration: BoxDecoration(
-                      color: Colors.red.shade50,
-                      borderRadius: BorderRadius.circular(14),
-                      border: Border.all(color: Colors.red.shade200),
+                      color: const Color(0xFFFFF1F2),
+                      borderRadius: BorderRadius.circular(16),
+                      border: Border.all(color: const Color(0xFFFECDD3)),
                     ),
                     child: Column(
                       children: result.blockedHeirs.map((b) {
@@ -337,7 +365,7 @@ class ResultsScreen extends StatelessWidget {
                               Expanded(
                                 child: Text(
                                   '${b.nameBn}: ${b.ruleExplanationBn}',
-                                  style: TextStyle(fontSize: 12, color: Colors.red.shade900),
+                                  style: TextStyle(fontSize: 12.5, color: Colors.red.shade900, height: 1.3),
                                 ),
                               ),
                             ],
@@ -361,15 +389,15 @@ class ResultsScreen extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(label, style: const TextStyle(fontSize: 10, color: Colors.grey, fontWeight: FontWeight.bold)),
-        const SizedBox(height: 2),
-        Text(value, style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: color)),
+        Text(label, style: const TextStyle(fontSize: 10.5, color: Colors.grey, fontWeight: FontWeight.bold)),
+        const SizedBox(height: 3),
+        Text(value, style: TextStyle(fontSize: 12.5, fontWeight: FontWeight.bold, color: color)),
       ],
     );
   }
 }
 
-// Custom Painter for Donut Chart
+// Custom Painter for Donut Chart with Curved Endings
 class _DonutChartPainter extends CustomPainter {
   final List<HeirShareResult> results;
   final List<Color> colors;
@@ -385,7 +413,7 @@ class _DonutChartPainter extends CustomPainter {
     final paint = Paint()
       ..style = PaintingStyle.stroke
       ..strokeWidth = strokeWidth
-      ..strokeCap = StrokeCap.butt;
+      ..strokeCap = StrokeCap.round;
 
     double startAngle = -math.pi / 2;
 
