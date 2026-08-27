@@ -50,6 +50,60 @@
     this.fullCousins = 0,
     this.consanguineCousins = 0,
   });
+
+  HeirInput copyWith({
+    String? deceasedGender,
+    int? husband,
+    int? wives,
+    int? father,
+    int? mother,
+    int? paternalGrandfather,
+    int? paternalGrandmother,
+    int? maternalGrandmother,
+    int? sons,
+    int? daughters,
+    int? sonSons,
+    int? sonDaughters,
+    int? fullBrothers,
+    int? fullSisters,
+    int? consanguineBrothers,
+    int? consanguineSisters,
+    int? uterineBrothers,
+    int? uterineSisters,
+    int? fullBrotherSons,
+    int? consanguineBrotherSons,
+    int? fullPaternalUncles,
+    int? consanguinePaternalUncles,
+    int? fullCousins,
+    int? consanguineCousins,
+  }) {
+    return HeirInput(
+      deceasedGender: deceasedGender ?? this.deceasedGender,
+      husband: husband ?? this.husband,
+      wives: wives ?? this.wives,
+      father: father ?? this.father,
+      mother: mother ?? this.mother,
+      paternalGrandfather: paternalGrandfather ?? this.paternalGrandfather,
+      paternalGrandmother: paternalGrandmother ?? this.paternalGrandmother,
+      maternalGrandmother: maternalGrandmother ?? this.maternalGrandmother,
+      sons: sons ?? this.sons,
+      daughters: daughters ?? this.daughters,
+      sonSons: sonSons ?? this.sonSons,
+      sonDaughters: sonDaughters ?? this.sonDaughters,
+      fullBrothers: fullBrothers ?? this.fullBrothers,
+      fullSisters: fullSisters ?? this.fullSisters,
+      consanguineBrothers: consanguineBrothers ?? this.consanguineBrothers,
+      consanguineSisters: consanguineSisters ?? this.consanguineSisters,
+      uterineBrothers: uterineBrothers ?? this.uterineBrothers,
+      uterineSisters: uterineSisters ?? this.uterineSisters,
+      fullBrotherSons: fullBrotherSons ?? this.fullBrotherSons,
+      consanguineBrotherSons: consanguineBrotherSons ?? this.consanguineBrotherSons,
+      fullPaternalUncles: fullPaternalUncles ?? this.fullPaternalUncles,
+      consanguinePaternalUncles: consanguinePaternalUncles ?? this.consanguinePaternalUncles,
+      fullCousins: fullCousins ?? this.fullCousins,
+      consanguineCousins: consanguineCousins ?? this.consanguineCousins,
+    );
+  }
 }
 
 class AssetInput {
@@ -127,18 +181,6 @@ class BlockedHeirInfo {
     required this.nameBn,
     required this.blockedByBn,
     required this.ruleExplanationBn,
-  });
-}
-
-class ExclusionInfo {
-  final bool isExcluded;
-  final String? blockedByBn;
-  final String? reasonBn;
-
-  ExclusionInfo({
-    required this.isExcluded,
-    this.blockedByBn,
-    this.reasonBn,
   });
 }
 
