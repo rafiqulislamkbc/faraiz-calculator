@@ -1,4 +1,4 @@
-name: Build Android and Desktop Apps
+﻿name: Build Android and Desktop Apps
 
 on:
   push:
@@ -7,6 +7,7 @@ on:
 
 jobs:
   build-android:
+    name: Build Android APK
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -23,11 +24,11 @@ jobs:
           flutter-version: '3.29.x'
           channel: 'stable'
 
+      - name: Create Android Platform Files
+        run: flutter create --platforms=android .
+
       - name: Get Dependencies
         run: flutter pub get
-
-      - name: Create Platform Files if missing
-        run: flutter create --platforms=android .
 
       - name: Build Android Release APK
         run: flutter build apk --release
@@ -39,6 +40,7 @@ jobs:
           path: build/app/outputs/flutter-apk/app-release.apk
 
   build-windows:
+    name: Build Windows Desktop App
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
@@ -52,11 +54,11 @@ jobs:
       - name: Enable Windows Desktop
         run: flutter config --enable-windows-desktop
 
-      - name: Get Dependencies
-        run: flutter pub get
-
       - name: Create Windows Platform Files
         run: flutter create --platforms=windows .
+
+      - name: Get Dependencies
+        run: flutter pub get
 
       - name: Build Windows Desktop Release
         run: flutter build windows --release
