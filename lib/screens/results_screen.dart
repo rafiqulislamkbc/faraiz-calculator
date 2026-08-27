@@ -1,9 +1,9 @@
-import 'dart:math' as math;
+﻿import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import '../models/faraiz_models.dart';
 
 class ResultsScreen extends StatelessWidget {
-  final CalculationResult result;
+  final MirathCalculationResult result;
 
   const ResultsScreen({super.key, required this.result});
 
@@ -134,7 +134,7 @@ class ResultsScreen extends StatelessWidget {
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
                                     const Text('মোট বণ্টন', style: TextStyle(fontSize: 11, color: Colors.grey, fontWeight: FontWeight.bold)),
-                                    const Text('১০০%', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Color(0xFF047857))),
+                                    const Text('১০০%', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Color(0xFF047857))),
                                     Text('৳ ${(result.netDistributableValuation / 1000).toStringAsFixed(0)}K', style: TextStyle(fontSize: 10, color: Colors.grey.shade600)),
                                   ],
                                 ),
@@ -258,7 +258,6 @@ class ResultsScreen extends StatelessWidget {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              // Islamic Rule & Quranic Reference
                               Text(
                                 heir.ruleExplanationBn,
                                 style: const TextStyle(fontSize: 12.5, color: Color(0xFF334155), height: 1.4),
@@ -272,7 +271,6 @@ class ResultsScreen extends StatelessWidget {
                               ],
                               const Divider(height: 18),
 
-                              // Itemized Assets Breakdown
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
@@ -382,7 +380,7 @@ class _DonutChartPainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     final center = Offset(size.width / 2, size.height / 2);
     final radius = size.width / 2;
-    const strokeWidth = 20.0;
+    const strokeWidth = 18.0;
 
     final paint = Paint()
       ..style = PaintingStyle.stroke
